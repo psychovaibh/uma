@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar(props) {
+export default function Navbar({ selectedUser }) {
   return (
     <>
       <div className="card bg-dark text-center sticky-top">
@@ -9,7 +9,7 @@ export default function Navbar(props) {
           <ul className="nav nav-tabs card-header-tabs">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="true" to="/">
-                Add New User Data
+                {selectedUser ? "Edit Data here!" : "Add New User Data"}
               </Link>
             </li>
             <li className="nav-item">

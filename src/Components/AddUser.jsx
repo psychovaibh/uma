@@ -1,70 +1,79 @@
 import React, { useState } from "react";
 
-export default function AddUser({ data, setData, setSelectedUser, selectedUser }) {
+export default function AddUser({
+  data,
+  setData,
+  setSelectedUser,
+  selectedUser,
+}) {
+  // form data initialize with blank
+
   const [formData, setFormData] = useState({
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    contact: ''
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    contact: "",
   });
 
-  React.useEffect(()=>{
+  // using useEffect for upadting seleceted user taken from ShowUser.jsx as props of selectedUser
+
+  React.useEffect(() => {
     if (selectedUser) {
       setFormData(selectedUser);
-    }
-    else{
+    } else {
       setFormData({
-        id:'',
-        firstName:'',
-        lastName:'',
-        email:'',
-        contact:''
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        contact: "",
       });
     }
-  },[selectedUser]);
+  }, [selectedUser]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const addData = (e) => {
     e.preventDefault();
 
+    // finally data check if/else for updation or addition new data
+
     if (selectedUser) {
-      const updatedData = data.map((user)=>{
-        if(user.id === selectedUser.id){
+      const updatedData = data.map((user) => {
+        if (user.id === selectedUser.id) {
           return formData;
         }
         return user;
       });
       setData(updatedData);
       setSelectedUser(null);
-    } else{
+      window.alert("Updated successfull!");
+    } else {
+      const id = data.length + 1;
 
-    
+      const newUser = {
+        id: id,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        contact: formData.contact,
+      };
 
-    const id = data.length + 1;
-
-    const newUser = {
-      id: id,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      contact: formData.contact
-    };
-
-    setData([...data, newUser]);
-  }
+      setData([...data, newUser]);
+      window.alert("Added User!");
+    }
     setFormData({
-      id:'',
-      firstName: '',
-      lastName: '',
-      email: '',
-      contact: ''
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      contact: "",
     });
   };
   return (

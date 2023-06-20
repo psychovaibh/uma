@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 
-export default function AddUser({ data, setData }) {
+export default function AddUser({ data, setData, setSelectedUser, selectedUser }) {
   const [formData, setFormData] = useState({
+    id: '',
     firstName: '',
     lastName: '',
     email: '',
     contact: ''
   });
+
+  React.useEffect(()=>{
+    if (selectedUser) {
+      setFormData(selectedUser);
+    }
+    else{
+      setFormData({
+        id:'',
+        firstName:'',
+        lastName:'',
+        email:'',
+        contact:''
+      });
+    }
+  },[selectedUser]);
 
   const handleChange = (e) => {
     setFormData({
@@ -17,6 +33,19 @@ export default function AddUser({ data, setData }) {
 
   const addData = (e) => {
     e.preventDefault();
+
+    if (selectedUser) {
+      const updatedData = data.map((user)=>{
+        if(user.id === selectedUser.id){
+          return formData;
+        }
+        return user;
+      });
+      setData(updatedData);
+      setSelectedUser(null);
+    } else{
+
+    
 
     const id = data.length + 1;
 
@@ -29,7 +58,9 @@ export default function AddUser({ data, setData }) {
     };
 
     setData([...data, newUser]);
+  }
     setFormData({
+      id:'',
       firstName: '',
       lastName: '',
       email: '',
@@ -97,7 +128,7 @@ export default function AddUser({ data, setData }) {
             />
           </div>
           <button type="submit" className="btn btn-primary mt-3 w-100">
-            Submit
+            {selectedUser ? "update" : "Submit"}
           </button>
         </form>
       </div>

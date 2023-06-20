@@ -1,11 +1,14 @@
 import React from "react";
-export default function ShowUser({ data, selectData,setData }) {
+export default function ShowUser({ data, setData, setSelectedUser }) {
 
   const handleEdit = (id) => {
-    const selectedUser = data.find((user) => user.id === id);
+    const user = data.find((user) => user.id === id);
+    
+    setSelectedUser(user);
+    console.log(setSelectedUser);
+
   };
   const handleDelete = (id) => {
-    console.log(id);
     const updatedData = data.filter((user) => user.id !== id);
     setData(updatedData);
   };

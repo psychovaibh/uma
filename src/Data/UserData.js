@@ -2,8 +2,8 @@ const UserData = [
 
     {
         id: 1,
-        firstName: 'zack',
-        lastName: 'Sho',
+        firstName: 'yash',
+        lastName: 'suman',
         email: 'Example@gmail.com',
         contact: 1234567890,
     },
